@@ -30,7 +30,12 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
 }
 
-// Default runtime is Node.js, so no need to specify `runtime` here
 export const config = {
-    matcher: ['/dashboard/:path*', '/protected/:path*'],
+    matcher: [
+        '/admin/:path*',
+        '/inventory/:path*',
+        '/catalog/:path*',
+        '/dropshipping/:path*',
+        '/dashboard/:path*',
+    ],
 };

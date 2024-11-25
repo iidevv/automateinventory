@@ -13,7 +13,9 @@ const Layout = async (props: Props) => {
             <AppSidebar />
             <main>
                 <SidebarTrigger />
-                {props.children}
+                <div className="p-2">
+                    {props.children}
+                </div>
             </main>
         </SidebarProvider>
     )

@@ -4,33 +4,36 @@ import {
     SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { sidebarItems } from "@/lib/constant"
+import { sidebarAccountItems, sidebarItems } from "@/lib/constant"
 import Logo from "../global/logo"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { ChevronUp, User2 } from "lucide-react"
+import SignOutButton from '../global/signout';
+import Link from "next/link"
 
 type Props = {}
 
 const AppSidebar = (props: Props) => {
     return (
         <Sidebar>
-            <SidebarContent>
+            <SidebarContent className="bg-white p-2">
                 <SidebarGroup>
-                    <Logo />
+                    <div className="mb-4">
+                        <Logo />
+                    </div>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {sidebarItems.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild>
-                                        <a href={item.url}>
+                                        <Link href={item.url}>
                                             <item.icon />
-                                            <span>{item.title}</span>
-                                        </a>
+                                            <span className="text-lg">{item.title}</span>
+                                        </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}
@@ -38,28 +41,29 @@ const AppSidebar = (props: Props) => {
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
-            <SidebarFooter>
+            <SidebarFooter className="bg-white border-t">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <SidebarMenuButton>
-                                    <User2 /> Username
+                                    <User2 /> Account
                                     <ChevronUp className="ml-auto" />
                                 </SidebarMenuButton>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent
                                 side="top"
-                                className="w-[--radix-popper-anchor-width]"
+                                className="w-[--radix-popper-anchor-width] bg-white p-2 rounded-sm shadow-sm"
                             >
+                                {sidebarAccountItems.map((item) => (
+                                    <DropdownMenuItem className="mb-2" key={item.title}>
+                                        <Link className="block w-full" href={item.url}>
+                                            {item.title}
+                                        </Link>
+                                    </DropdownMenuItem>
+                                ))}
                                 <DropdownMenuItem>
-                                    <span>Account</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <span>Billing</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <span>Sign out</span>
+                                    <SignOutButton />
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
